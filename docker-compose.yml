@@ -1,0 +1,30 @@
+version: "3"
+services:
+  phoenix:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+      args:
+        ENVIRONMENT: dev
+    environment:
+      DB_USER: user
+      DB_PASS: password
+      DB_PORT: 5432
+      DB_HOST: db
+      DB_NAME: blog_dev
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: blog_dev
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

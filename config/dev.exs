@@ -2,10 +2,10 @@ import Config
 
 # Configure your database
 config :blog, Blog.Repo,
-  username: "user",
-  password: "password",
-  hostname: "localhost",
-  database: "blog_dev",
+  username: System.get_env("DB_USER", "user"),
+  password: System.get_env("DB_PASS", "postgres"),
+  hostname: System.get_env("DB_HOST", "localhost"),
+  database: System.get_env("DB_NAME", "blog_dev"),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
